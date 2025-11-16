@@ -1,13 +1,11 @@
 # imdb-ratings
 Data science: Building regression model that predicts movie ratings
-
 ## Data
-- movie_metadata.csv: The raw IMDb dataset containing ~5000 movie entries with original columns (unprocessed).
-- imdb_movie_clean.csv: Cleaned version of the raw data — duplicates and rows with excessive missing values removed. Only key columns are kept.
-- imdb_movie_final.csv: The final preprocessed dataset ready for analysis and modeling. Includes imputed numeric means, avg_cast_likes, and both cast popularity metrics.
-- director_summary.csv: Summarized director-level data with each director’s total movie count, average IMDb rating, and average gross revenue.
-- actors_summary.csv: Summarized actor-level data showing each actor’s total number of films, average IMDb rating, and average gross revenue.
-
+- **movie_metadata.csv**: the raw 5000 movie dataset from IMDB
+- **imdb_movie_clean.csv**: clean duplicates and remove extra info
+- **imdb_movie_final.csv**: final preprocessed dataset for modeling
+- **director_summary.csv**: summarize director's experience (film counts, avg imdb score, avg gross)
+- **actors_summary.csv**: summarize actor's experience (film counts, avg imdb score, avg gross)
 ## Data Cleaning
 ### cleanData.py
 - Define columns to keep from the raw CSV
