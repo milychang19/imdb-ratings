@@ -8,15 +8,6 @@ Data science: Building regression model that predicts movie ratings
 - director_summary.csv: Summarized director-level data with each director’s total movie count, average IMDb rating, and average gross revenue.
 - actors_summary.csv: Summarized actor-level data showing each actor’s total number of films, average IMDb rating, and average gross revenue.
 
-`
-Data Cleaning/
-├─ cleanData.py
-├─ addMean.py
-├─ facebookLikes.py
-├─ director.py
-└─ actors.py
-`
-
 ## Data Cleaning
 ### cleanData.py
 - Define columns to keep from the raw CSV
