@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import shap
 import os
+import joblib
 
 # Import the functions from our modules
 from sampling import create_train_test_split
@@ -46,8 +47,32 @@ def plot_shap_summary(model, X_test, feature_names):
     plt.savefig('charts/lgbm_shap_summary.png')
     plt.close()
 
+# Add this new function anywhere inside main.py
+def generate_scatter_plots(df, target_column):
+    """
+    Generates and saves scatterplots for each feature against the target variable.
+    """
+    scatter_dir = 'charts/scatter_plots'
+    if not os.path.exists(scatter_dir):
+        os.makedirs(scatter_dir)
+        
+    print(f"\nGenerating scatter plots in '{scatter_dir}'...")
+    
+    # We'll plot the 20 most important features based on their correlation with the target
+    correlations = df.corr()[target_column].abs().sort_values(ascending=False)
+    features_to_plot = correlations[1:21].index # Exclude the target itself
+
+    for feature in features_to_plot:
+        plt.figure(figsize=(10, 6))
+        sns.regplot(data=df, x=feature, y=target_column, scatter_kws={'alpha':0.3})
+        plt.title(f'{feature} vs. {target_column}')
+        plt.savefig(f'{scatter_dir}/{feature}_vs_{target_column}.png')
+        plt.close()
+    print("Scatter plots generated.")
+
 def prepare_data(movies_path, directors_path, actors_path):
     """Loads, merges, and prepares the movie data for modeling."""
+    # --- 1. Load and Merge Data (same as before) ---
     movies_df = pd.read_csv(movies_path)
     directors_df = pd.read_csv(directors_path)
     actors_df = pd.read_csv(actors_path)
@@ -55,17 +80,35 @@ def prepare_data(movies_path, directors_path, actors_path):
     data = pd.merge(data, actors_df.add_suffix('_1'), left_on='actor_1_name', right_on='actor_name_1', how='left')
     data = pd.merge(data, actors_df.add_suffix('_2'), left_on='actor_2_name', right_on='actor_name_2', how='left')
     data = pd.merge(data, actors_df.add_suffix('_3'), left_on='actor_3_name', right_on='actor_name_3', how='left')
+
+    # --- 2. Feature Engineering for Genres (THE NEW PART) ---
+    # Handle the 'genres' column with multi-hot encoding
+    # This splits 'Action|Adventure' into separate 'genre_Action' and 'genre_Adventure' columns
+    print("Performing multi-hot encoding on genres...")
+    genres_dummies = data['genres'].str.get_dummies(sep='|')
     
+    # Add a prefix to avoid potential column name collisions
+    genres_dummies = genres_dummies.add_prefix('genre_')
+    
+    # Combine the new genre columns with the original dataframe
+    data = pd.concat([data, genres_dummies], axis=1)
+    
+    # --- 3. Select Final Features ---
+    # Now, we select all numeric columns, which will include our new genre columns
     numeric_cols = data.select_dtypes(include=['number']).columns.tolist()
+    
+    # We can still drop columns we don't want as features
     features_to_keep = [col for col in numeric_cols if col not in ['title_year']]
     
-    # --- FIX IS HERE ---
-    # Add .copy() to explicitly create a new DataFrame and avoid the warning.
+    # Create the final dataframe
     final_df = data[features_to_keep].copy()
     
+    # --- 4. Handle Missing Values (same as before) ---
     for col in final_df.columns:
         if final_df[col].isnull().any():
             final_df[col] = final_df[col].fillna(final_df[col].mean())
+            
+    print("Data preparation complete. Genres have been encoded.")
     return final_df
 
 if __name__ == "__main__":
@@ -79,6 +122,8 @@ if __name__ == "__main__":
 
     model_data = prepare_data(MOVIES_CSV, DIRECTORS_CSV, ACTORS_CSV)
     TARGET = 'imdb_score'
+
+    generate_scatter_plots(model_data, TARGET)
 
     X_train, X_test, y_train, y_test = create_train_test_split(model_data, TARGET)
     
@@ -110,3 +155,12 @@ if __name__ == "__main__":
     results_df = pd.DataFrame([lr_results, poly_results, lgbm_results])
     print("\n--- Model Performance Comparison ---")
     print(results_df.to_string(index=False))
+    
+    model_filename = 'lgbm_movie_predictor.joblib'
+    joblib.dump(lgbm_model, model_filename)
+    print(f"\nBest model (LightGBM) saved to {model_filename}")
+
+    # Also save the list of columns the model was trained on
+    columns_filename = 'training_columns.joblib'
+    joblib.dump(X_train.columns.tolist(), columns_filename)
+    print(f"Model's training columns saved to {columns_filename}")
