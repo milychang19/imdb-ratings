@@ -232,6 +232,9 @@ def build_features_for_split(
         if pd.api.types.is_numeric_dtype(train[c])
     ]
 
+    # leak_cols = ["gross", "log_gross", "gross_to_budget_ratio"]
+    # feature_cols = [c for c in feature_cols if c not in leak_cols]
+
     train_out = train[id_cols_existing + feature_cols + [TARGET_COL]]
     test_out = test[id_cols_existing + feature_cols + [TARGET_COL]]
 

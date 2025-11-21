@@ -60,31 +60,34 @@ def train_lightgbm(
     y_train: pd.Series,
     X_valid: pd.DataFrame,
     y_valid: pd.Series,
-    num_leaves: int = 64,
-    learning_rate: float = 0.05,
-    n_estimators: int = 2000,
 ) -> Tuple[lgb.LGBMRegressor, Dict]:
-    """Train LightGBM with early stopping and return model + eval history."""
-    model = lgb.LGBMRegressor(
-        objective="regression",
-        num_leaves=63,
-        learning_rate=learning_rate,
-        n_estimators=800,   # much smaller
-        subsample=0.8,
-        colsample_bytree=0.8,
-        random_state=42,
-        n_jobs=-1,
-        verbosity=-1,       # quiets a lot of spam
-    )
+    """Train a regularized LightGBM model with proper early stopping on validation."""
+
+    params = {
+        "objective": "regression",
+        "num_leaves": 31,           # smaller = smoother, less overfitting
+        "learning_rate": 0.03,
+        "n_estimators": 3000,       # large; early_stopping will stop earlier
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "min_child_samples": 40,    # min data per leaf
+        "reg_lambda": 1.0,          # L2 regularization
+        "random_state": 42,
+        "n_jobs": -1,
+        "verbosity": -1,
+    }
+
+    model = lgb.LGBMRegressor(**params)
 
     model.fit(
         X_train,
         y_train,
-        eval_set=[(X_train, y_train), (X_valid, y_valid)],
-        eval_names=["train", "valid"],
+        # IMPORTANT: put VALID FIRST for early stopping, but still log TRAIN too
+        eval_set=[(X_valid, y_valid), (X_train, y_train)],
+        eval_names=["valid", "train"],
         eval_metric="rmse",
         callbacks=[
-            lgb.early_stopping(stopping_rounds=50, verbose=False),
+            lgb.early_stopping(stopping_rounds=100, verbose=False),
             lgb.log_evaluation(period=0),
         ],
     )

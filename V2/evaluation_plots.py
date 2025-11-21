@@ -70,24 +70,61 @@ def plot_polynomial_complexity(
 def plot_actual_vs_predicted_overlay(
     y_true: np.ndarray,
     preds: Dict[str, np.ndarray],
+    split_ids: np.ndarray | None = None,
     alpha: float = 0.4,
 ) -> None:
-    plt.figure(figsize=(7, 7))
-    max_val = max(y_true.max(), *(p.max() for p in preds.values()))
-    min_val = min(y_true.min(), *(p.min() for p in preds.values()))
+    """
+    Create:
+      1) One overlay plot with all models on the same axes (0–10).
+      2) One plot per model (0–10 axes).
+
+    All values are clipped to [0, 10] for visualization.
+    """
+    # Clip actuals to [0, 10] for plotting
+    y_true = np.clip(np.asarray(y_true), 0.0, 10.0)
+
+    # Clip all predictions to [0, 10] for plotting
+    preds_clipped: Dict[str, np.ndarray] = {
+        name: np.clip(np.asarray(y_pred), 0.0, 10.0)
+        for name, y_pred in preds.items()
+    }
+
+    min_val, max_val = 0.0, 10.0  # fixed IMDb scale
+
+    # ---------- 1) Overlay plot: all models together ----------
+    plt.figure(figsize=(8, 8))
     plt.plot([min_val, max_val], [min_val, max_val], "k--", linewidth=1, label="Ideal")
 
-    for name, y_pred in preds.items():
-        plt.scatter(y_true, y_pred, alpha=alpha, label=name)
+    for name, y_pred in preds_clipped.items():
+        plt.scatter(y_true, y_pred, alpha=alpha, s=15, label=name)
 
     plt.xlabel("Actual IMDb score")
     plt.ylabel("Predicted IMDb score")
-    plt.title("Actual vs predicted IMDb scores (all splits)")
+    plt.title("Actual vs predicted IMDb scores (all models, all splits)")
+    plt.xlim(min_val, max_val)
+    plt.ylim(min_val, max_val)
     plt.legend()
     plt.tight_layout()
     out = PLOTS_DIR / "actual_vs_predicted_all_models.png"
     plt.savefig(out, dpi=150)
     plt.close()
+
+    # ---------- 2) One plot per model ----------
+    for name, y_pred in preds_clipped.items():
+        plt.figure(figsize=(8, 8))
+        plt.plot([min_val, max_val], [min_val, max_val], "k--", linewidth=1, label="Ideal")
+        plt.scatter(y_true, y_pred, alpha=alpha, s=15)
+
+        plt.xlabel("Actual IMDb score")
+        plt.ylabel(f"Predicted IMDb score ({name})")
+        plt.title(f"Actual vs predicted IMDb scores – {name}")
+        plt.xlim(min_val, max_val)
+        plt.ylim(min_val, max_val)
+        plt.tight_layout()
+        out = PLOTS_DIR / f"actual_vs_predicted_{name}.png"
+        plt.savefig(out, dpi=150)
+        plt.close()
+
 
 
 def plot_residuals_vs_predicted(
