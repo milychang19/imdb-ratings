@@ -1,0 +1,34 @@
+id,title,release_date,genres,original_language,original_title,imdb_id,vote_count,revenue,runtime,adult,budget,popularity,release_year,log_budget,log_gross,gross_to_budget_ratio,genre_Action,genre_Adventure,genre_Animation,genre_Comedy,genre_Crime,genre_Documentary,genre_Drama,genre_Family,genre_Fantasy,genre_History,genre_Horror,genre_Music,genre_Mystery,genre_Romance,genre_Science Fiction,genre_TV Movie,genre_Thriller,genre_War,genre_Western,vote_average
+1262921,Pinkalicious,2028-07-07,Comedy|Drama,en,Pinkalicious,,0,0,103,False,46000000,0.6,2028,17.6441519761925,0.0,0.0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1264644,DEAMMM,2028-12-31,Documentary|Comedy,pt,DEAMMM,,0,26000,0,False,3000,0.6,2028,8.006700845440367,10.165890277802454,8.666666666666666,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1127894,Birdemic 5: Birdman,2027-01-01,Horror,en,Birdemic 5: Birdman,,0,0,0,False,25000,1.222,2027,10.12667110305036,0.0,0.0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0.0
+1231322,The Wandering Earth III,2027-02-06,Science Fiction|Action|Adventure,zh,流浪地球3,,0,0,0,False,10000000,0.0,2027,16.118095750958314,0.0,0.0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0.0
+1226636,party animals,2027-09-26,Comedy,en,party animals,,0,1,2,False,1,0.0,2027,0.6931471805599453,0.6931471805599453,1.0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1478968,Sinner,2027-11-05,Action|Horror,en,Sinner,,0,0,90,False,4000,0.0143,2027,8.294299608857235,0.0,0.0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0.0
+1507840,The Suffering Tenants,2027-01-01,Crime|Thriller,en,The Suffering Tenants,,0,0,84,False,400000,0.0286,2027,12.899222326086994,0.0,0.0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0.0
+1505523,ETERNIA: TWILIGHT OF STARS,2027-03-12,Science Fiction|Action|Drama|Adventure,en,ETERNIA: TWILIGHT OF STARS,,0,0,0,False,873000000,0.0,2027,20.58744611494935,0.0,0.0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0.0
+1511426,BAHUBURA,2027-03-10,Drama|Action,hi,BAHUBURA,,0,0,132,False,2500,0.1,2027,7.824445930877619,0.0,0.0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1499621,Grand Theft Auto,2027-08-20,Action|Comedy,en,Grand Theft Auto,,0,0,127,False,170000000,0.0929,2027,18.951309000896888,0.0,0.0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1464395,Bioshock,2028-07-25,Adventure|Fantasy|Drama,en,Bioshock,,0,0,0,False,50,0.1071,2028,3.9318256327243257,0.0,0.0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0.0
+1466690,Friends forever,2027-01-01,,en,Friends forever,,0,0,79,False,100,0.0071,2027,4.61512051684126,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1565437,"Ninjago ""A world with no hope""",2027-01-10,Animation|Action|Adventure,es,"Ninjago ""Un mundo sin esperanza""",,0,0,130,False,2000,0.0,2027,7.601402334583733,0.0,0.0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1552376,The Figures of Home,2027-10-22,Drama,en,The Figures of Home,tt38514386,0,0,90,False,100000,0.0929,2027,11.51293546492023,0.0,0.0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1570733,Vampyr,2027-01-01,Thriller|Crime|Horror,no,Vampyr,tt37183529,0,0,100,False,4310000,0.0,2027,15.276448694098464,0.0,0.0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0.0
+1525218,Narco Shark 3,2027-07-18,Action|Horror|Comedy,en,Narco Shark 3,,0,0,99,False,10000,0.0311,2027,9.210440366976517,0.0,0.0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0.0
+1524390,kind boy,2028-03-15,,pt,kind boy,,0,10,0,False,10,0.0,2028,2.3978952727983707,2.3978952727983707,1.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1530925,Pókember: Negatív élet,2027-01-01,Action|Drama,hu,Pókember: Negatív élet,,0,0,0,False,3000,0.0143,2027,8.006700845440367,0.0,0.0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1519227,Captain Zero: The Movie,2027-06-18,Animation|Action|Drama,en,Captain Zero: The Movie,tt33317144,0,0,0,False,12000000,0.0143,2027,16.300417291085605,0.0,0.0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1547881,VENDETTA-BEAST MODE,2027-06-10,Action|Crime,te,వెండెట్టా-బీస్ట్ మోడ్,,0,0,30,False,300,0.15,2027,5.707110264748875,0.0,0.0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1354265,All is Found 6,2028-11-27,,en,All is Found 6,,0,10,77,False,700,0.0,2028,6.55250788703459,2.3978952727983707,0.014285714285714285,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1356358,Sunder,2027-09-17,,en,Sunder,,0,0,0,False,15000,0.6,2027,9.61587214452889,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1360932,Welcome To The End Of The World,2028-06-28,Drama|Horror|Crime,en,Welcome To The End Of The World,,0,0,183,False,30000,0.0,2028,10.308985993422082,0.0,0.0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0.0
+1319004,World Behind Waters,2027-01-15,Drama|Thriller|Science Fiction,en,World Behind Waters,,0,0,0,False,50000000,0.0,2027,17.72753358339242,0.0,0.0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0.0
+1319012,Doctor Suicide,2028-07-01,Horror|History|Thriller|Drama|Action|Adventure,en,Doctor Suicide,,0,0,0,False,37000000,0.0,2028,17.426428497635523,0.0,0.0,1,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,1,0,0,0.0
+1423654,The Luz: Mroczna Pustynia,2028-07-28,Action|Adventure|Science Fiction,pl,The Luz: Mroczna Pustynia,,0,0,0,False,15000,0.667,2028,9.61587214452889,0.0,0.0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0.0
+1437270,Once Upon A Time On The Internet,2027-12-30,Documentary,en,Once Upon A Time On The Internet,,0,0,0,False,107392,0.671,2027,11.584250282024042,0.0,0.0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1441622,Cling Film,2027-11-29,,en,Cling Film,,0,0,100,False,60000,0.6,2027,11.002116507732017,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1441191,The Revenge: Part Two,2027-01-31,Drama|Action|Adventure,en,Hefndin 2,,0,0,180,False,300000000,1.4,2027,19.519293035953808,0.0,0.0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1388869,Maar,2027-05-09,Crime|Drama,as,Maar,,0,0,115,False,1200,1.174,2027,7.0909098220799835,0.0,0.0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1407414,I Dreamed Of Love When The Candles Died Out,2027-05-06,,en,I Dreamed Of Love When The Candles Died Out,,0,100,190,True,100,0.0,2027,4.61512051684126,4.61512051684126,1.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+1406452,I Never Dreamed Of Love Until It Burned Out,2028-12-31,Romance|Drama,en,I Never Dreamed Of Love Until It Burned Out,,0,0,112,True,65,0.0,2028,4.189654742026425,0.0,0.0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0.0
+1397946,Wicked: Episode IV — The Rift of Oz,2027-12-08,Music|Adventure|Comedy,en,Wicked: Episode IV — The Rift of Oz,,0,2,185,False,128,1.4,2027,4.859812404361672,1.0986122886681098,0.015625,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0.0

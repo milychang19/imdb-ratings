@@ -1,0 +1,18 @@
+id,title,release_date,genres,original_language,original_title,imdb_id,vote_count,revenue,runtime,adult,budget,popularity,release_year,log_budget,log_gross,gross_to_budget_ratio,genre_Action,genre_Adventure,genre_Animation,genre_Comedy,genre_Crime,genre_Documentary,genre_Drama,genre_Family,genre_Fantasy,genre_History,genre_Horror,genre_Music,genre_Mystery,genre_Romance,genre_Science Fiction,genre_Thriller,genre_War,genre_Western,vote_average
+22596,Safety Last!,1923-04-01,Comedy|Romance|Thriller,en,Safety Last!,tt0014429,436,1500000,74,False,121000,11.505,1923,11.703554089007538,14.220976332738882,12.396694214876034,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,7.849
+57283,Häxan,1922-09-18,Documentary|Horror|History,sv,Häxan,tt0013257,320,0,105,False,220000,12.817,1922,12.301387370778713,0.0,0.0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,7.613
+669,Nanook of the North,1922-06-11,Documentary,en,Nanook of the North,tt0013427,269,0,79,False,53000,11.341,1922,10.87806606028079,0.0,0.0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,7.1
+18987,The Hunchback of Notre Dame,1923-09-06,Romance|Drama|Horror,en,The Hunchback of Notre Dame,tt0014142,104,0,113,False,1250000,7.391,1923,14.038654909278163,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,6.466
+35227,Foolish Wives,1922-01-11,Drama|Thriller,en,Foolish Wives,tt0013140,75,400200,143,False,1100000,5.13,1922,13.910821646859095,12.899722199879273,0.3638181818181818,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,6.6
+24805,The Ten Commandments,1923-11-23,Drama|History,en,The Ten Commandments,tt0014532,65,0,136,False,1800000,9.246,1923,14.403297778421795,0.0,0.0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,6.662
+96951,Salomé,1922-12-31,Drama|Fantasy|Horror,en,Salomé,tt0013571,25,0,74,False,350000,2.51,1922,12.765691290604371,0.0,0.0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,6.0
+144923,The Prisoner of Zenda,1922-09-11,Adventure|Drama,en,The Prisoner of Zenda,tt0013515,16,0,113,False,323062,2.179,1922,12.685602629625338,0.0,0.0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,6.219
+547707,Trifling Women,1922-11-06,Drama|Romance,en,Trifling Women,tt0013710,0,0,90,False,273,0.6,1922,5.6131281063880705,0.0,0.0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0.0
+545364,Hollywood,1923-08-19,Comedy|Drama,en,Hollywood,tt0014137,0,0,80,False,202,1.908,1923,5.313205979041787,0.0,0.0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0.0
+662968,The Rapids,1922-10-30,Drama,en,The Rapids,tt0013534,0,0,0,False,65000,0.841,1922,11.082157933374816,0.0,0.0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0.0
+293468,The Day of Faith,1923-10-20,Drama,en,The Day of Faith,tt0013977,0,0,70,False,250000,1.423,1923,12.429220196836383,0.0,0.0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0.0
+76998,The Lights of New York,1922-11-12,,en,The Lights of New York,tt0013313,0,0,57,False,23000,0.887,1922,10.043292972227004,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+371169,Bulldog Drummond,1922-12-29,Crime|Action|Adventure,en,Bulldog Drummond,tt0013902,0,0,0,False,5,0.799,1922,1.791759469228055,0.0,0.0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+943337,The Dinkum Bloke,1923-06-02,,en,The Dinkum Bloke,tt0258525,0,0,80,False,9000,0.6,1923,9.105090961257085,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+889971,A Dangerous Adventure,1922-11-01,Adventure,en,A Dangerous Adventure,tt0013046,0,142000,0,False,175000,0.6,1922,12.07254696717504,11.863589378812122,0.8114285714285714,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0
+700713,Koriatovych,1922-11-09,Fantasy,cs,Koryatovič,tt1084706,0,0,82,False,12000,0.6,1922,9.392745258631441,0.0,0.0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0.0

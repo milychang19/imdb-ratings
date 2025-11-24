@@ -1,0 +1,8 @@
+id,title,release_date,genres,original_language,original_title,imdb_id,vote_count,revenue,runtime,adult,budget,popularity,release_year,log_budget,log_gross,gross_to_budget_ratio,genre_Action,genre_Adventure,genre_Animation,genre_Comedy,genre_Crime,genre_Documentary,genre_Drama,genre_Family,genre_Fantasy,genre_History,genre_Horror,genre_Music,genre_Mystery,genre_Romance,genre_Science Fiction,genre_Thriller,genre_War,genre_Western,vote_average
+54242,Mickey,1918-08-01,Comedy|Drama,en,Mickey,tt0009369,16,8000000,71,False,250000,1.951,1918,12.429220196836383,15.894952224644102,32.0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,6.438
+132410,The Ghost of Slumber Mountain,1918-11-17,Fantasy|Animation,en,The Ghost of Slumber Mountain,tt0009105,8,3000,16,False,3000,1.116,1918,8.006700845440367,8.006700845440367,1.0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,6.0
+191081,The Woman God Forgot,1917-10-27,Romance|History,en,The Woman God Forgot,tt0008786,7,0,60,False,115420,1.25,1917,11.656341592237128,0.0,0.0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,5.8
+209231,Polly of the Circus,1917-09-08,Drama,en,Polly of the Circus,tt0008442,2,0,80,False,250000,1.072,1917,12.429220196836383,0.0,0.0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,6.0
+348504,Patria,1917-01-14,Drama|Action,en,Patria,tt0008411,1,0,310,False,90000,0.65,1917,11.407576060361786,0.0,0.0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,6.5
+426807,The Conqueror,1917-09-16,Western,en,The Conqueror,tt0007820,0,0,80,False,300000,1.4,1917,12.611541086966115,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0.0
+740104,The Spirit of '76,1917-01-01,Drama|History|War,en,The Spirit of '76,tt0182444,0,0,135,False,200000,0.6,1917,12.206077645517674,0.0,0.0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0.0
