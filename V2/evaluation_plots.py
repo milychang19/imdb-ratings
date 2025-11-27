@@ -213,6 +213,149 @@ def plot_shap_summary_and_dependence(
     plt.close()
 
 
+def plot_genre_frequency_from_df(
+    df: pd.DataFrame,
+    prefix: str = "genre_",
+    filename: str = "genre_frequency.png",
+) -> None:
+    """
+    Bar plot of how often each genre appears (multi-hot aware).
+
+    Each genre_* column is summed across rows, so a movie with
+    Action|Comedy contributes 1 to both Action and Comedy.
+    """
+    # pick all multi-hot genre columns
+    genre_cols = [c for c in df.columns if c.startswith(prefix)]
+    if not genre_cols:
+        print("No genre_* columns found; skipping genre frequency plot.")
+        return
+
+    counts = df[genre_cols].sum(axis=0)
+    counts = counts.sort_values(ascending=False)
+
+    plt.figure(figsize=(10, 5))
+    sns.barplot(
+        x=counts.index.str.replace(prefix, "", regex=False),
+        y=counts.values,
+    )
+    plt.xticks(rotation=45, ha="right")
+    plt.ylabel("Number of movie occurrences")
+    plt.xlabel("Genre")
+    plt.title("Frequency of genres (multi-hot counts)")
+    plt.tight_layout()
+    out = PLOTS_DIR / filename
+    plt.savefig(out, dpi=150)
+    plt.close()
+
+
+def plot_num_genres_per_movie(
+    df: pd.DataFrame,
+    prefix: str = "genre_",
+    filename: str = "num_genres_per_movie.png",
+) -> None:
+    """
+    Histogram of how many genres each movie has (1,2,3,...).
+
+    Uses the multi-hot genre_* columns for each row.
+    """
+    genre_cols = [c for c in df.columns if c.startswith(prefix)]
+    if not genre_cols:
+        print("No genre_* columns found; skipping num-genres-per-movie plot.")
+        return
+
+    num_genres = df[genre_cols].sum(axis=1)
+
+    plt.figure(figsize=(7, 5))
+    plt.hist(num_genres, bins=range(int(num_genres.max()) + 2), align="left", rwidth=0.8)
+    plt.xlabel("Number of genres assigned to a movie")
+    plt.ylabel("Number of movies")
+    plt.title("Distribution of number of genres per movie")
+    plt.xticks(range(int(num_genres.max()) + 1))
+    plt.tight_layout()
+    out = PLOTS_DIR / filename
+    plt.savefig(out, dpi=150)
+    plt.close()
+
+def plot_imdb_histograms_by_genre(
+    df: pd.DataFrame,
+    target_col: str = "imdb_score",
+    prefix: str = "genre_",
+    max_genres: int = 9,
+    filename: str = "imdb_hist_by_genre.png",
+) -> None:
+    """
+    Plot IMDb score distributions for the most common genres.
+
+    Creates a grid of histograms: one subplot per genre_* column, showing
+    the distribution of imdb_score for movies that have that genre.
+    Each title includes the mean IMDb score for that genre.
+    """
+    # Pick multi-hot genre columns
+    genre_cols = [c for c in df.columns if c.startswith(prefix)]
+    if not genre_cols:
+        print("No genre_* columns found; skipping IMDb-by-genre plots.")
+        return
+
+    # How common each genre is (multi-hot counts)
+    counts = df[genre_cols].sum(axis=0).sort_values(ascending=False)
+
+    # Take the top N genres
+    top_genres = counts.head(max_genres).index.tolist()
+    if not top_genres:
+        print("No genres to plot; skipping.")
+        return
+
+    # Figure layout (e.g. 3x3 grid for 9 genres)
+    n_genres = len(top_genres)
+    n_cols = 3
+    n_rows = int(np.ceil(n_genres / n_cols))
+
+    fig, axes = plt.subplots(
+        n_rows,
+        n_cols,
+        figsize=(5 * n_cols, 4 * n_rows),
+        sharex=True,
+        sharey=True,
+    )
+    axes = np.array(axes).reshape(n_rows, n_cols)
+
+    bins = np.linspace(0, 10, 21)  # 0–10 in 0.5 steps
+
+    for idx, col in enumerate(top_genres):
+        r = idx // n_cols
+        c = idx % n_cols
+        ax = axes[r, c]
+
+        scores = df.loc[df[col] == 1, target_col].dropna()
+        if len(scores) == 0:
+            ax.set_visible(False)
+            continue
+
+        mean_score = scores.mean()
+
+        ax.hist(scores, bins=bins, density=True, alpha=0.7)
+        ax.set_title(
+            f"{col.replace(prefix, '')} (mean={mean_score:.2f})",
+            fontsize=10,
+        )
+        ax.set_xlim(0, 10)
+        ax.set_xlabel("IMDb score")
+        ax.set_ylabel("Density")
+
+    # Hide any unused subplots
+    for idx in range(len(top_genres), n_rows * n_cols):
+        r = idx // n_cols
+        c = idx % n_cols
+        axes[r, c].set_visible(False)
+
+    fig.suptitle("IMDb score distributions by genre (top genres)", fontsize=16)
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+
+    out = PLOTS_DIR / filename
+    plt.savefig(out, dpi=150)
+    plt.close()
+
+
 def make_error_analysis_table(
     y_true: np.ndarray,
     preds: Dict[str, np.ndarray],
