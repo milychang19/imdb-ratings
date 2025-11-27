@@ -56,13 +56,15 @@ def load_splits() -> List[Tuple[Path, Path]]:
 
 def run_all_splits(
     use_lightgbm: bool = True,
-    max_splits: int | None = 8,           # limit number of splits (None = use all)
-    build_learning_curves: bool = False,  # set True only when you really need curves
+    max_splits: int | None = None,
+    build_learning_curves: bool = False,
 ) -> None:
-    all_metrics_rows = []
+    # Collect per-split metrics
+    all_metrics_rows: List[Dict] = []
 
+    # For global plots / error analysis
     all_y_true: List[float] = []
-    all_meta_rows = []
+    all_meta_rows: List[pd.DataFrame] = []
     preds_accum: Dict[str, List[float]] = {
         "linear": [],
         "poly_deg_2": [],
@@ -70,14 +72,46 @@ def run_all_splits(
     if use_lightgbm:
         preds_accum["lgbm"] = []
 
+    # ---- load and filter splits by test year ----
     pairs = load_splits()
     if not pairs:
         raise RuntimeError("No time-based split CSVs found. Run data_prep_time_splits.py first.")
 
-    print(f"Found {len(pairs)} time-based splits")
+    MIN_TEST_YEAR = 1980   # change to 1990 if you want 1990+
+    MAX_TEST_YEAR = 2024   # stop predicting beyond 2024
+
+    filtered_pairs: List[Tuple[Path, Path]] = []
+    for train_path, test_path in pairs:
+        # test filename looks like: "test_1981_to_1982.csv"
+        stem = test_path.stem              # e.g. "test_1981_to_1982"
+        parts = stem.split("_")            # ["test", "1981", "to", "1982"]
+        if len(parts) < 4:
+            continue  # unexpected name, skip
+
+        try:
+            start_year = int(parts[1])
+            end_year = int(parts[3])
+        except ValueError:
+            continue  # malformed name, skip
+
+        # keep only splits whose test window is fully inside [MIN_TEST_YEAR, MAX_TEST_YEAR]
+        if start_year >= MIN_TEST_YEAR and end_year <= MAX_TEST_YEAR:
+            filtered_pairs.append((train_path, test_path))
+
+    pairs = filtered_pairs
+
+    if not pairs:
+        raise RuntimeError(
+            f"No splits found with {MIN_TEST_YEAR} <= test years <= {MAX_TEST_YEAR}"
+        )
+
+    print(f"Found {len(pairs)} time-based splits in [{MIN_TEST_YEAR}, {MAX_TEST_YEAR}]")
+
     if max_splits is not None and len(pairs) > max_splits:
         pairs = pairs[-max_splits:]
-    print(f"Using {len(pairs)} most recent splits for experiments")
+    print(f"Using {len(pairs)} splits for experiments")
+
+    # --------------------------------------------
 
     first_split = True
     lgbm_for_shap = None
@@ -122,6 +156,14 @@ def run_all_splits(
         X_test = test_df[feature_cols]
         y_test = test_df[TARGET_COL]
 
+        # Skip splits with too-small test sets (avoid R^2 warnings / scaler errors)
+        if X_test.shape[0] < 2:
+            print(
+                f"  Skipping split {split_idx}: "
+                f"test set has only {X_test.shape[0]} rows after preprocessing"
+            )
+            continue
+
         # Keep meta for error analysis (aligned with y_test)
         meta_test = test_df[id_cols]
         all_meta_rows.append(meta_test)
@@ -138,7 +180,6 @@ def run_all_splits(
         metrics_lr.update({"model": "linear", "split": split_idx})
         all_metrics_rows.append(metrics_lr)
 
-        # SAVE linear model
         joblib.dump(
             lr_model,
             MODELS_DIR / f"linear_split_{split_idx}.joblib"
@@ -152,7 +193,6 @@ def run_all_splits(
         metrics_poly.update({"model": f"poly_deg_{poly_degree}", "split": split_idx})
         all_metrics_rows.append(metrics_poly)
 
-        # SAVE polynomial degree-2 model
         joblib.dump(
             poly_model,
             MODELS_DIR / f"poly_deg_{poly_degree}_split_{split_idx}.joblib"
@@ -168,7 +208,6 @@ def run_all_splits(
             metrics_lgbm.update({"model": "lgbm", "split": split_idx})
             all_metrics_rows.append(metrics_lgbm)
 
-            # SAVE LightGBM model for this split
             joblib.dump(
                 lgbm_model,
                 MODELS_DIR / f"lgbm_split_{split_idx}.joblib"
@@ -312,8 +351,7 @@ def run_all_splits(
     if use_lightgbm and lgbm_for_shap is not None and X_for_shap is not None:
         plot_shap_summary_and_dependence(lgbm_for_shap, X_for_shap)
 
-
 if __name__ == "__main__":
     # tweak here if you ever want all splits / learning curves
     # e.g. run_all_splits(max_splits=None, build_learning_curves=True)
-    run_all_splits()
+    run_all_splits(max_splits=None)
