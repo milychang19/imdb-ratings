@@ -1,24 +1,28 @@
 # models_regression.py
 
-import numpy as np
-import pandas as pd
-from typing import Dict, Tuple, List
+from __future__ import annotations
 
-from sklearn.linear_model import Ridge
-from sklearn.preprocessing import StandardScaler, PolynomialFeatures
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-import numpy as np
 from typing import Dict, Tuple
-from sklearn.model_selection import learning_curve
 
 import lightgbm as lgb
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import Ridge
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import learning_curve
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler
 
 
-def evaluate_regression(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, float]:
-    # Clamp predictions to a plausible IMDb range
+def evaluate_regression(
+    y_true: np.ndarray,
+    y_pred: np.ndarray,
+) -> Dict[str, float]:
+    """
+    Compute RMSE, MAE, R^2 for regression models.
+
+    Predictions are clamped to [0, 10] to match IMDb-like scales.
+    """
     y_pred = np.clip(y_pred, 0.0, 10.0)
 
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
@@ -27,8 +31,8 @@ def evaluate_regression(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, flo
     return {"rmse": rmse, "mae": mae, "r2": r2}
 
 
-def train_linear_regression(X_train, y_train):
-    """Ridge-regularized linear regression to avoid coefficient blowup."""
+def train_linear_regression(X_train: pd.DataFrame, y_train: pd.Series) -> Pipeline:
+    """Ridge-regularized linear regression with standardization."""
     model = Pipeline(
         [
             ("scaler", StandardScaler()),
@@ -39,10 +43,14 @@ def train_linear_regression(X_train, y_train):
     return model
 
 
-def train_polynomial_regression(X_train, y_train, degree: int = 2):
+def train_polynomial_regression(
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+    degree: int = 2,
+) -> Pipeline:
     """Polynomial features + Ridge regression.
 
-    NOTE: degree>2 is very likely to overfit badly on this dataset.
+    Note: degree > 2 is likely to overfit badly on this dataset.
     """
     model = Pipeline(
         [
@@ -61,17 +69,16 @@ def train_lightgbm(
     X_valid: pd.DataFrame,
     y_valid: pd.Series,
 ) -> Tuple[lgb.LGBMRegressor, Dict]:
-    """Train a regularized LightGBM model with proper early stopping on validation."""
-
+    """Train a LightGBM regressor with early stopping on a validation set."""
     params = {
         "objective": "regression",
-        "num_leaves": 31,           # smaller = smoother, less overfitting
+        "num_leaves": 31,
         "learning_rate": 0.03,
-        "n_estimators": 3000,       # large; early_stopping will stop earlier
+        "n_estimators": 3000,
         "subsample": 0.8,
         "colsample_bytree": 0.8,
-        "min_child_samples": 40,    # min data per leaf
-        "reg_lambda": 1.0,          # L2 regularization
+        "min_child_samples": 40,
+        "reg_lambda": 1.0,
         "random_state": 42,
         "n_jobs": -1,
         "verbosity": -1,
@@ -82,7 +89,6 @@ def train_lightgbm(
     model.fit(
         X_train,
         y_train,
-        # IMPORTANT: put VALID FIRST for early stopping, but still log TRAIN too
         eval_set=[(X_valid, y_valid), (X_train, y_train)],
         eval_names=["valid", "train"],
         eval_metric="rmse",
@@ -103,7 +109,14 @@ def make_learning_curve(
     cv: int = 3,
     train_sizes: np.ndarray | None = None,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Return train sizes, mean train scores, mean valid scores (using negative MSE)."""
+    """
+    Compute learning curve for an estimator.
+
+    Returns:
+      train_sizes,
+      mean train RMSE per size,
+      mean validation RMSE per size.
+    """
     if train_sizes is None:
         train_sizes = np.linspace(0.1, 1.0, 8)
 
@@ -117,7 +130,6 @@ def make_learning_curve(
         n_jobs=-1,
     )
 
-    train_rmse = np.sqrt(-train_scores)
-    valid_rmse = np.sqrt(-valid_scores)
-
-    return sizes, train_rmse.mean(axis=1), valid_rmse.mean(axis=1)
+    train_rmse = np.sqrt(-train_scores).mean(axis=1)
+    valid_rmse = np.sqrt(-valid_scores).mean(axis=1)
+    return sizes, train_rmse, valid_rmse
